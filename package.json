@@ -1,6 +1,6 @@
 {
-  "name": "react-native-notifications",
-  "version": "4.2.4",
+  "name": "@one-network/react-native-notifications",
+  "version": "4.3.0",
   "description": "Advanced Push Notifications (Silent, interactive notifications) for iOS & Android",
   "license": "MIT",
   "keywords": [
@@ -75,11 +75,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/wix/react-native-notifications.git"
+    "url": "git+https://github.com/one-network/react-native-notifications.git"
   },
-  "homepage": "https://github.com/wix/react-native-notifications",
+  "homepage": "https://github.com/one-network/react-native-notifications",
   "bugs": {
-    "url": "https://github.com/wix/react-native-notifications/issues"
+    "url": "https://github.com/one-network/react-native-notifications/issues"
   },
   "detox": {
     "test-runner": "jest",
@@ -130,5 +130,13 @@
       "text",
       "html"
     ]
-  }
+  },
+  "dependencies": {
+    "nvm": "^0.0.4"
+  },
+  "directories": {
+    "example": "example",
+    "lib": "lib"
+  },
+  "author": ""
 }

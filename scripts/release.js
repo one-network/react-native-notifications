@@ -7,18 +7,23 @@ const grenrc = require('../.grenrc');
 const cp = require('child_process');
 
 // Workaround JS
-const isRelease = process.env.BUILDKITE_MESSAGE.match(/^release$/i);
-const BRANCH = process.env.BUILDKITE_BRANCH;
+const isRelease = true; //process.env.BUILDKITE_MESSAGE.match(/^release$/i);
+const BRANCH = 'release/4.3.0'; //process.env.BUILDKITE_BRANCH;
 
 let VERSION, VERSION_TAG;
-if (isRelease) {
+/*if (isRelease) {
     VERSION = cp.execSync(`buildkite-agent meta-data get version`).toString();
     VERSION_TAG = cp.execSync(`buildkite-agent meta-data get npm-tag`).toString();
 }
 
 if (VERSION_TAG == 'null') {
     VERSION_TAG = isRelease ? 'latest' : 'snapshot';
-  }
+}
+*/
+VERSION = "4.3.0"
+VERSION_TAG = "latest"
+//VERSION_TAG = "4.4.0-one-network"
+
 const VERSION_INC = 'patch';
 
 function run() {
@@ -31,18 +36,18 @@ function run() {
 }
 
 function validateEnv() {
-    if (!process.env.CI) {
-        throw new Error(`releasing is only available from CI`);
-    }
+    //if (!process.env.CI) {
+    //    throw new Error(`releasing is only available from CI`);
+    //}
     return true;
 }
 
 function setupGit() {
-    exec.execSyncSilent(`git config --global push.default simple`);
-    exec.execSyncSilent(`git config --global user.email "${process.env.GIT_EMAIL}"`);
-    exec.execSyncSilent(`git config --global user.name "${process.env.GIT_USER}"`);
-    const remoteUrl = new RegExp(`https?://(\\S+)`).exec(exec.execSyncRead(`git remote -v`))[1];
-    exec.execSyncSilent(`git remote add deploy "https://${process.env.GIT_USER}:${process.env.GIT_TOKEN}@${remoteUrl}"`);
+    //exec.execSyncSilent(`git config --global push.default simple`);
+    //exec.execSyncSilent(`git config --global user.email "${process.env.GIT_EMAIL}"`);
+    //exec.execSyncSilent(`git config --global user.name "${process.env.GIT_USER}"`);
+    //const remoteUrl = new RegExp(`https?://(\\S+)`).exec(exec.execSyncRead(`git remote -v`))[1];
+    //exec.execSyncSilent(`git remote add deploy "https://${process.env.GIT_USER}:${process.env.GIT_TOKEN}@${remoteUrl}"`);
     // exec.execSync(`git checkout ${ONLY_ON_BRANCH}`);
 }
 
@@ -62,11 +67,11 @@ function versionTagAndPublish() {
     const currentPublished = findCurrentPublishedVersion();
     console.log(`current published version: ${currentPublished}`);
 
-    const version = isRelease
-        ? VERSION
-        : semver.gt(packageVersion, currentPublished)
-            ? `${packageVersion}-snapshot.${process.env.BUILDKITE_BUILD_NUMBER}`
-            : `${currentPublished}-snapshot.${process.env.BUILDKITE_BUILD_NUMBER}`;
+    const version = VERSION
+        //? VERSION
+        //: semver.gt(packageVersion, currentPublished)
+        //    ? `${packageVersion}-snapshot.${process.env.BUILDKITE_BUILD_NUMBER}`
+        //    : `${currentPublished}-snapshot.${process.env.BUILDKITE_BUILD_NUMBER}`;
 
     console.log(`Publishing version: ${version}`);
 
